@@ -12,7 +12,7 @@
 using namespace Kore;
 
 void usage() {
-    printf("Usage: atlas out w h i=file x=x y=y\n");
+    printf("Usage: atlas out w h i=file x=x y=y w=w h=h\n");
 }
 
 namespace {
@@ -26,6 +26,8 @@ namespace {
 	int numImages = 0;
 	int posx[16];
 	int posy[16];
+	int posw[16];
+	int posh[16];
 
 	std::string outputPath;
 
@@ -37,7 +39,7 @@ namespace {
 		g2->clear(0xff000000);
 
 		for (int i = 0; i < numImages; ++i) {
-			g2->drawImage(textures[i], posx[i], posy[i]);
+			g2->drawScaledSubImage(textures[i], 0, 0, textures[i]->width, textures[i]->height, posx[i], posy[i], posw[i], posh[i]);
 		}
 
 		//g2->setColor(0xffffffff);
@@ -105,6 +107,14 @@ int kore(int argc, char** argv) {
 		else if (startsWith(arg, "y=")) {
 			std::string substring = arg.substr(2);
 			posy[numImages - 1] = atoi(substring.c_str());
+		}
+		else if (startsWith(arg, "w=")) {
+			std::string substring = arg.substr(2);
+			posw[numImages - 1] = atoi(substring.c_str());
+		}
+		else if (startsWith(arg, "h=")) {
+			std::string substring = arg.substr(2);
+			posh[numImages - 1] = atoi(substring.c_str());
 		}
 	}
 
