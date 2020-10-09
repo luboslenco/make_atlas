@@ -12,7 +12,7 @@
 using namespace Kore;
 
 void usage() {
-    printf("Usage: atlas out w h i=file x=x y=y w=w h=h\n");
+	printf("Usage: atlas out w h i=file x=x y=y w=w h=h\n");
 }
 
 namespace {
