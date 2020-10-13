@@ -2,8 +2,6 @@ let project = new Project('atlas', __dirname);
 
 project.addFile('Sources/**');
 project.setDebugDir('Deployment');
+project.cpp = true;
 
-Project.createProject('Kore', __dirname).then((kore) => {
-	project.addSubProject(kore);
-	resolve(project);
-});
+resolve(project);

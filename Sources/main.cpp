@@ -61,7 +61,7 @@ bool startsWith(std::string a, std::string b) {
 	return a.substr(0, b.size()) == b;
 }
 
-int kore(int argc, char** argv) {
+int kickstart(int argc, char** argv) {
 	outputPath = std::string(argv[1]);
 	atlasW = atoi(argv[2]);
 	atlasH = atoi(argv[3]);
@@ -72,19 +72,16 @@ int kore(int argc, char** argv) {
 	options.height = 128;
 	options.x = -1;
 	options.y = -1;
-	options.targetDisplay = -1;
-	options.showWindow = false;
-	Kore::System::setShowWindowFlag(options.showWindow);
-	options.vSync = false;
+	options.displayIndex = -1;
+	options.visible = false;
 	options.mode = Kore::WindowMode::WindowModeWindow;
-	options.resizable = false;
-	options.maximizable = false;
-	options.minimizable = true;
-	options.rendererOptions.depthBufferBits = 16;
-	options.rendererOptions.stencilBufferBits = 8;
-	options.rendererOptions.textureFormat = 0;
-	options.rendererOptions.antialiasing = 1;
-	Kore::System::initWindow(options);
+	options.windowFeatures = Kore::WindowFeatureMinimizable;
+
+	Kore::FramebufferOptions framebufferOptions;
+	framebufferOptions.verticalSync = false;
+	framebufferOptions.depthBufferBits = 16;
+	framebufferOptions.stencilBufferBits = 8;
+	System::init(options.title, options.width, options.height, &options, &framebufferOptions);
 	System::setCallback(update);
 
 	g2 = new Graphics2::Graphics2(atlasW, atlasH, true);
